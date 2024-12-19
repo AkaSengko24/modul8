@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan</title>
+    <link rel="icon" href="gambar/freepik__expand__41534.png">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 3em;
+        }
+
+        h1 {
+            font-weight: normal;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        div.form-group {
+            display: flex;
+            margin-block: 1.5em;
+        }
+
+        label {
+            width: 30%;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            border-radius: 5px;
+            border: 1px solid gray;
+            height: 40px;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        #durasi-menginap {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #checkbox-breakfast {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-group {
+            display: flex;
+            margin-block: 1.5em;
+        }
+
+        .form-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-button button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border-width: 0;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .form-button button[type="submit"] {
+            background-color: #2f75ee;
+        }
+
+        .form-button button[type="reset"] {
+            background-color: #f0990e;
+        }
+
+        input[type="text"]:disabled {
+            background-color: #e9e9e9;
+        }
+
+        #resume-pemesanan {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        #resume-pemesanan h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Form Pemesanan</h1>
+
+    <form id="form-pemesanan">
+        <div class="form-group">
+            <label for="id_pemesan">ID Pemesan:</label>
+            <input type="number" id="id_pemesan" name="id_pemesan" placeholder="Masukkan ID Pemesan" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nama_pemesan">Nama Pemesan:</label>
+            <input type="text" id="nama_pemesan" name="nama_pemesan" placeholder="Masukkan Nama Pemesan" required>
+        </div>
+
+        <div class="form-group">
+            <label for="no_identitas">Nomor Identitas:</label>
+            <input type="text" id="no_identitas" name="no_identitas" placeholder="Masukkan Nomor Identitas" required>
+        </div>
+
+        <div class="form-group">
+            <label for="jenis_kelamin">Jenis Kelamin:</label>
+            <select id="jenis_kelamin" name="jenis_kelamin" required>
+                <option value="">--Pilih--</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tipe_kamar">Tipe Kamar:</label>
+            <select id="tipe_kamar" name="tipe_kamar" required>
+                <option value="">--Pilih--</option>
+                <option value="Standar" data-harga="500000">STANDAR</option>
+                <option value="Deluxe" data-harga="750000">DELUXE</option>
+                <option value="Family" data-harga="1000000">FAMILY</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="harga_kamar">Harga Kamar:</label>
+            <input type="text" id="harga_kamar" name="harga_kamar" placeholder="Harga Kamar" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="tanggal_pesan">Tanggal Pesan:</label>
+            <input type="date" id="tanggal_pesan" name="tanggal_pesan" required>
+        </div>
+
+        <div class="form-group">
+            <label for="durasi_menginap">Durasi Menginap:</label>
+            <div id="durasi-menginap">
+                <input type="number" id="durasi_menginap" name="durasi_menginap" placeholder="Masukkan Durasi" min="1" required>
+                <p>Hari</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Termasuk Breakfast:</label>
+            <div id="checkbox-breakfast">
+                <input type="checkbox" id="breakfast" name="breakfast" value="ya">
+                <label for="breakfast">Ya</label>
+            </div>
+        </div>
+
+        <div class="form-button">
+            <button type="submit" id="simpan">Simpan</button>
+            <button type="reset">Batal</button>
+        </div>
+    </form>
+
+    <div id="resume-pemesanan" style="display: none;">
+        <h2>Resume Pemesanan</h2>
+        <p><strong>Nama Pemesan:</strong> <span id="resume-nama"></span></p>
+        <p><strong>Nomor Identitas:</strong> <span id="resume-identitas"></span></p>
+        <p><strong>Jenis Kelamin:</strong> <span id="resume-kelamin"></span></p>
+        <p><strong>Tipe Kamar:</strong> <span id="resume-tipe"></span></p>
+        <p><strong>Harga Kamar:</strong> Rp <span id="resume-harga"></span></p>
+        <p><strong>Durasi Menginap:</strong> <span id="resume-durasi"></span> Hari</p>
+        <p><strong>Termasuk Breakfast:</strong> <span id="resume-breakfast"></span></p>
+        <p><strong>Diskon:</strong> <span id="resume-diskon"></span>%</p>
+        <p><strong>Total Bayar:</strong> Rp <span id="resume-total"></span></p>
+    </div>
+
+    <script>
+            $("#tipe_kamar").change(function () {
+                        const hargaKamar = $("#tipe_kamar option:selected").data("harga") || 0;
+                        $("#harga_kamar").val(hargaKamar.toLocaleString("id-ID"));
+                    });
+
+
+            $("#simpan").click(function (event) {
+                        event.preventDefault();
+                        const namaPemesan = $("#nama_pemesan").val();
+                        const noIdentitas = $("#no_identitas").val();
+                        const jenisKelamin = $("#jenis_kelamin").val();
+                        const tipeKamar = $("#tipe_kamar").val();
+                        const hargaKamar = parseInt($("#tipe_kamar option:selected").data("harga")) || 0;
+                        const durasi = parseInt($("#durasi_menginap").val()) || 0;
+                        const isBreakfast = $("#breakfast").is(":checked");
+                        const diskon = durasi > 2 ? 10 : 0;
+
+                        if (noIdentitas.length !== 16) {
+                            alert("Nomor identitas salah, harus 16 digit!");
+                            return;
+                        }
+
+                        const tambahanBreakfast = isBreakfast ? 80000 : 0;
+                        const totalBayar = ((hargaKamar * durasi) * ((100 - diskon) / 100)) + (tambahanBreakfast * durasi);
+
+                        $("#resume-nama").text(namaPemesan);
+                        $("#resume-identitas").text(noIdentitas);
+                        $("#resume-kelamin").text(jenisKelamin);
+                        $("#resume-tipe").text(tipeKamar);
+                        $("#resume-harga").text(hargaKamar.toLocaleString("id-ID"));
+                        $("#resume-durasi").text(durasi);
+                        $("#resume-breakfast").text(isBreakfast ? "Ya, tambahan Rp.80.000" : "Tidak");
+                        $("#resume-diskon").text(diskon);
+                        $("#resume-total").text(totalBayar.toLocaleString("id-ID"));
+
+                        $("#resume-pemesanan").show();
+                    });
+    </script>
+</body>
+
+</html>
